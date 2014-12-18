@@ -4,15 +4,13 @@ import re
 
 def parseWebLog(log, N=0):
     cache = {}
-    result = []
     urls = match(log)
     for url in urls:
         if url not in cache:
             cache[url] = 1
         else:
             cache[url] += 1
-    for url in cache:
-        result.append([url, cache[url]])
+    result = [[url, cache[url]] for url in cache]
     result = sorted(result, key=lambda url: url[1], reverse=True)
     if N >= len(result) or N == 0:
         return result
